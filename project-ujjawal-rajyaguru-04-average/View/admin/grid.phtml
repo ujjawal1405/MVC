@@ -1,0 +1,53 @@
+<?php 
+
+$admins = $this->getData();
+
+?>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="View/skin/style.css">
+</head>
+<body>
+	<?php require_once 'View/html/header.phtml'; ?>
+	<div class="content-main">
+		<div class="content">
+			<h2>Manage Admin</h2>
+			<a href="<?php print_r($url->getUrl('add')); ?>">Add Admin</a>
+		</div>
+		<table border="2px" width="100%">
+			<tr>
+				<th>AdminID</th>
+				<th>Name</th>
+				<th>Email</th>
+				<th>Status</th>
+				<th>CreatedAT</th>
+				<th>UpdatedAT</th>
+				<th colspan="2">Actions</th>
+			</tr>
+			<?php if (is_array($admins)):?>
+				<?php foreach ($admins as $admin):?>
+				<tr>
+					<td><center><?php echo $admin->admin_id;?></center></td>
+					<td><?php echo $admin->name; ?></td>
+					<td><?php echo $admin->email; ?></td>
+					<td><?php echo $admin->getStatusText() ?></td>
+					<td><?php echo $admin->created_at; ?></td>
+					<td><?php echo $admin->updated_at; ?></td>
+					<td><a href="<?php print_r($url->getUrl('edit',Null,['id'=>$admin->admin_id])); ?>">Edit</td>
+					<td><a href="<?php print_r($url->getUrl('delete',Null,['id'=>$admin->admin_id])); ?>">Delete</td>
+				</tr>
+				<?php endforeach; ?>
+			<?php else: ?>
+				<tr>
+					<td colspan="7">No records available.</td>
+				</tr>
+			<?php endif; ?>
+		</table>
+	</div>
+	<?php require_once 'View/html/footer.phtml'; ?>
+</body>
+</html>

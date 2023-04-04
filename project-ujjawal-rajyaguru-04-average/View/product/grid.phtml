@@ -1,0 +1,63 @@
+<?php 
+
+$products = $this->products;
+
+?>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="View/skin/style.css">
+</head>
+<body>
+	<?php require_once 'View/html/header.phtml'; ?>
+	<div class="content-main">
+		<div class="content">
+			<h2>Manage Product</h2>
+			<a href="<?php print_r($url->getUrl('add')); ?>">Add Product</a>
+		</div>
+		<table border="2px" width="100%">
+			<tr>
+				<th>ProductID</th>
+				<th>Name</th>
+				<th>SKU</th>
+				<th>Cost</th>
+				<th>Price</th>
+				<th>Status</th>
+				<th>Color</th>
+				<th>Material</th>
+				<th>CreatedAT</th>
+				<th>UpdatedAT</th>
+				<th>Media</th>
+				<th colspan="2">Actions</th>
+			</tr>
+			<?php if(is_array($products)):?>
+				<?php foreach ($products as $product):?>
+				<tr>
+					<td><center><?php echo $product->product_id;?></center></td>
+					<td><?php echo $product->name; ?></td>
+					<td><?php echo $product->sku; ?></td>
+					<td><?php echo $product->cost; ?></td>
+					<td><?php echo $product->price; ?></td>
+					<td><?php echo $product->getStatusText() ?></td>
+					<td><?php echo $product->color; ?></td>
+					<td><?php echo $product->material; ?></td>
+					<td><?php echo $product->created_at; ?></td>
+					<td><?php echo $product->updated_at; ?></td>
+					<td><a href="<?php print_r($url->getUrl('grid','product_media',['id'=>$product->product_id])); ?>">View</td>
+					<td><a href="<?php print_r($url->getUrl('edit',Null,['id'=>$product->product_id])); ?>">Edit</td>
+					<td><a href="<?php print_r($url->getUrl('delete',Null,['id'=>$product->product_id])); ?>">Delete</td>
+				</tr>
+				<?php endforeach; ?>
+			<?php else: ?>
+				<tr>
+					<td colspan="14">Don't have any data.</td>
+				</tr>
+			<?php endif; ?>
+		</table>
+	</div>
+	<?php require_once 'View/html/footer.phtml'; ?>
+</body>
+</html>

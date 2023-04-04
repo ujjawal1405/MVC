@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="View/skin/style.css">
+</head>
+<body>
+	<?php require_once 'View/html/header.phtml'; ?>
+	<form action="<?php print_r($url->getUrl('save')); ?>" method="post" enctype="multipart/form-data">
+	<table>
+		<tr class="button">
+			<td><h1>Add Image</h1></td>
+			<td>
+				<button type="submit" value="upload Image">Save</button>
+				<input type="button" value="Cancel" onclick='window.location.href="<?php print_r($url->getUrl('grid')); ?>"'>
+			</td>
+		</tr>
+	</table>
+	<table border="1px">
+		<tr>
+			<td>Name: </td>
+			<td><input type="text" name="name"></td>
+		</tr>
+		<tr>
+			<td>Image: </td>
+			<td><input type="file" name="image"></td>
+		</tr>
+	</table>
+	</form>
+</body>
+</html>

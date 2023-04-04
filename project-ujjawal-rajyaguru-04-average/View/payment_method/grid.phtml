@@ -1,0 +1,61 @@
+<?php
+
+$payments = $this->payments;
+
+?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="View/skin/style.css">
+
+    <style>
+        .content a{
+            margin: 18px 0px 18px 700px;
+        }
+    </style>
+</head>
+
+<body>
+    <?php require_once 'View/html/header.phtml' ?>
+    <div class="content-main">
+        <div class="content">
+            <h2>Manage Payment Method</h2>
+            <a href="<?php print_r($url->getUrl('add')); ?>">Add Payment</a>
+        </div>
+        <table border="2px" width="100%">
+            <tr>
+                <th>Payment Method ID</th>
+                <th>Name</th>
+                <th>Status</th>
+                <th>CreatedAt</th>
+                <th>UpdatedAt</th>
+                <th colspan="2">Actions</th>
+            </tr>
+            <?php if(is_array($payments)): ?>
+                <?php foreach($payments as $payment): ?>
+                <tr>
+                    <td><center><?php echo $payment->payment_id ?></center></td>
+                    <td><?php echo $payment->name ?></td>
+                    <td><?php echo $payment->getStatusText() ?></td>
+                    <td><?php echo $payment->created_at ?></td>
+                    <td><?php echo $payment->updated_at ?></td>
+                    <td><a href="<?php print_r($url->getUrl('edit',Null,['id'=>$payment->payment_id])); ?>">Edit</a></td>
+                    <td><a href="<?php print_r($url->getUrl('delete',Null,['id'=>$payment->payment_id])); ?>">Delete</a></td>
+                </tr>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <tr>
+                    <td colspan="7">No records available.</td>
+                </tr>
+            <?php endif; ?>
+        </table>
+    </div>
+    <?php require_once 'View/html/footer.phtml'; ?>
+</body>
+
+</html>

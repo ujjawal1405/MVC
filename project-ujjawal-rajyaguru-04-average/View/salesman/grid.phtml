@@ -1,0 +1,64 @@
+<?php 
+
+$salesmen = $this->salesmen;
+
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="View/skin/style.css">
+</head>
+<body>
+	<?php require_once 'View/html/header.phtml'; ?>
+	<div class="content-main">
+		<div class="content">
+			<h2>Manage Salesman</h2>
+			<a href="<?php print_r($url->getUrl('add')); ?>">Add Salesman</a>
+		</div>
+		<table border="2px" width="100%">
+			<tr>
+				<th>SID</th>
+				<th>FirstName</th>
+				<th>LastName</th>
+				<th>Email</th>
+				<th>Gender</th>
+				<th>Mobile</th>
+				<th>Status</th>
+				<th>Company</th>
+				<th>Country</th>
+				<th>UpdatedAt</th>
+				<th>SPrice</th>
+				<th colspan="2">Actions</th>
+			</tr>
+			<?php if(is_array($salesmen)): ?>
+				<?php foreach($salesmen as $salesman): ?>
+				<tr>
+					<td><center><?php echo $salesman->salesman_id ?></center></td>
+					<td><?php echo $salesman->first_name ?></td>
+					<td><?php echo $salesman->last_name ?></td>
+					<td><?php echo $salesman->email ?></td>
+					<td><?php echo $salesman->gender ?></td>
+					<td><?php echo $salesman->mobile ?></td>
+					<td><?php if($salesman->status == 1){echo "Active";}else{echo "Inactive";} ?></td>
+					<td><?php echo $salesman->company ?></td>
+					<td><?php echo $salesman->country ?></td>
+					<td><?php echo $salesman->updated_at;?></td>
+					<td><a href="<?php print_r($url->getUrl(Null,'salesman_price',['id'=>$salesman->salesman_id])); ?>">View</a></td>
+					<td><a href="<?php print_r($url->getUrl('edit',Null,['id'=>$salesman->salesman_id])); ?>">Edit</a></td>
+					<td><a href="<?php print_r($url->getUrl('delete',Null,['id'=>$salesman->salesman_id])); ?>">Delete</a></td>
+				</tr>
+				<?php endforeach; ?>
+			<?php else: ?>
+				<tr>
+					<td colspan="13">No record is available.</td>
+				</tr>
+			<?php endif; ?>
+		</table>
+	</div>
+	<?php require_once 'View/html/footer.phtml'; ?>
+</body>
+</html>

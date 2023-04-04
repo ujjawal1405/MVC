@@ -1,0 +1,99 @@
+<?php 
+
+$salesman = $this->salesman;
+
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="View/skin/style.css">
+</head>
+<body>
+	<?php require_once 'View/html/header.phtml'; ?>
+	<div class="content-main">
+		<form action="<?php print_r($url->getUrl('save')); ?>" method="post">
+			<table>
+				<tr>
+					<td><h2>Save Salesman</h2></td>
+					<td class="sub-head">
+						<button type="submit">Save</button>
+						<input type="button" value="Cancel" onclick="window.location.href='<?php print_r($url->getUrl('grid',Null,Null,true)); ?>'">
+					</td>
+				</tr>
+			</table>
+			<table border="2px">
+				<tr>
+					<td>FirstName: </td>
+					<td><input type="text" name="salesman[first_name]" value="<?php echo $salesman->first_name ?>"></td>
+				</tr>
+				<tr>
+					<td>LastName: </td>
+					<td><input type="text" name="salesman[last_name]" value="<?php echo $salesman->last_name ?>"></td>
+				</tr>
+				<tr>
+					<td>Email: </td>
+					<td><input type="email" name="salesman[email]" value="<?php echo $salesman->email ?>"></td>
+				</tr>
+				<tr>
+					<td>Gender: </td>
+					<td>
+						<?php foreach ($salesman->getTable()->getGenderOptions() as $gender) :?> 
+                        <?php $checked = ($salesman->getGender() == $gender) ? 'checked':'' ?>   
+                        <input type="radio" name="salesman[gender]" value="<?php echo $gender ?>" <?php echo $checked; ?>><?php echo $gender ?> <br>
+                        <?php endforeach; ?>
+					</td>
+				</tr>
+				<tr>
+					<td>Mobile: </td>
+					<td><input type="number" name="salesman[mobile]" value="<?php echo $salesman->mobile ?>"></td>
+				</tr>
+				<tr>
+					<td>Status: </td>
+					<td>
+						<select name="salesman[status]">
+							<?php foreach ($salesman->getTable()->getStatusOptions() as $key => $value) :?>
+							<?php $selected = ($salesman->getStatus() == $key) ? 'selected':'' ?>
+							<option value="<?php echo $key ?>" <?php echo $selected ?>><?php echo $value ?></option>
+							<?php endforeach; ?>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>Company: </td>
+					<td><input type="text" name="salesman[company]" value="<?php echo $salesman->company ?>"></td>
+				</tr>
+			</table>
+			<table border="2px">
+				<tr>
+					<th colspan="2"><h3>Address</h3></th>
+				</tr>
+				<tr>
+					<td>Address: </td>
+					<td><textarea name="address[address]"><?php echo $salesman->address ?></textarea></td>
+				</tr>
+				<tr>
+					<td>City: </td>
+					<td><input type="text" name="address[city]" value="<?php echo $salesman->city ?>"></td>
+				</tr>
+				<tr>
+					<td>State: </td>
+					<td><input type="text" name="address[state]" value="<?php echo $salesman->state ?>"></td>
+				</tr>
+				<tr>
+					<td>Country: </td>
+					<td><input type="text" name="address[country]" value="<?php echo $salesman->country ?>"></td>
+				</tr>
+				<tr>
+					<td>ZipCode: </td>
+					<td><input type="number" name="address[zipcode]" value="<?php echo $salesman->zipcode ?>"></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	<?php require_once 'View/html/footer.phtml'; ?>
+</body>
+</html>

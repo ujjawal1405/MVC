@@ -1,0 +1,77 @@
+<?php 
+
+$products = $this->products;
+$salesmen = $this->salesmen;
+
+$id = Ccc::getModel('Core_Request')->getParams('id');
+
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="View/skin/style.css">
+	<script type="text/javascript">
+		function changeSalesman(salesmanId) {
+			window.location.href = "Index.php?c=salesman_price&a=grid&id="+salesmanId;
+		}
+	</script>
+</head>
+<body>
+	<?php require_once 'View/html/header.phtml'; ?>
+	<div class="content-main">
+		<table width="100%">
+			<tr>
+				<td width="80%">
+					<form method="post">
+						<h3>Salesmen:
+							<select name="select" onchange="changeSalesman(this.value)">
+								<?php foreach ($salesmen as $salesman): ?>
+								<?php $selected = ($id == $salesman->salesman_id) ? 'selected':'' ?>
+								<option value="<?php echo $salesman->salesman_id ?>" <?php echo $selected ?>><?php echo $salesman->first_name ?></option>
+								<?php endforeach; ?>
+							</select>
+						</h3>
+					</form>
+				</td>
+				<td><button onclick="document.getElementById('myForm').submit()">Update</button></td>
+				<td><input type="button" value="Go Back" onclick='window.location.href="<?php print_r($url->getUrl(null,'salesman',null,true)); ?>"'></td>
+			</tr>
+		</table>
+		<form action="<?php print_r($url->getUrl('update',null,['id'=>$id])); ?>" id="myForm" method="post">
+			<table border="2px" width="100%">
+				<tr>
+					<th>ProductID</th>
+					<th>Name</th>
+					<th>SKU</th>
+					<th>Cost</th>
+					<th>Price</th>
+					<th>S_Price</th>
+					<th>Remove</th>
+				</tr>
+				<?php if($products): ?>
+					<?php foreach($products as $product):?>
+					<tr>
+						<td><center><?php echo $product->product_id ?></center></td>
+						<td><center><?php echo $product->name ?></center></td>
+						<td><center><?php echo $product->sku ?></center></td>
+						<td><center><?php echo $product->cost ?></center></td>
+						<td><center><?php echo $product->price ?></center></td>
+						<td><center><input type="number" name="sPrice[<?php echo $product->product_id ?>]" value="<?php echo $product->salesman_price ?>"></center></td>
+						<td><center><input type="checkbox" name="del[<?php echo $product->entity_id ?>]"></center></td>
+					</tr>
+					<?php endforeach;?>
+				<?php else: ?>
+					<tr>
+						<td colspan="7">No records found.</td>
+					</tr>
+				<?php endif; ?>
+			</table>
+		</form>
+	</div>
+	<?php require_once 'View/html/footer.phtml'; ?>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<?php 
+
+$shippings = $this->shippings;
+
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="View/skin/style.css">
+
+	<style>
+        .content a{
+            margin: 18px 0px 18px 700px;
+        }
+	</style>
+</head>
+<body>
+	<?php require_once 'View/html/header.phtml'; ?>
+	<div class="content-main">
+		<div class="content">
+			<h2>Manage Shipping Method</h2>
+			<a href="<?php print_r($url->getUrl('add')); ?>">Add Shipping</a>
+		</div>
+		<table border="2px" width="100%">
+			<tr>
+				<th>ShippingID</th>
+				<th>Name</th>
+				<th>Amount</th>
+				<th>Status</th>
+				<th>CreatedAt</th>
+				<th>UpdatedAt</th>
+				<th colspan="2">Actions</th>
+			</tr>
+			<?php if(is_array($shippings)): ?>
+				<?php foreach($shippings as $shipping): ?>
+				<tr>
+					<td><center><?php echo $shipping->shipping_id; ?></center></td>
+					<td><?php echo $shipping->name; ?></td>
+					<td><?php echo $shipping->amount; ?></td>
+					<td><?php echo $shipping->getStatusText() ?></td>
+					<td><?php echo $shipping->created_at; ?></td>
+					<td><?php echo $shipping->updated_at ?></td>
+					<td><a href="<?php print_r($url->getUrl('edit',Null,['id'=>$shipping->shipping_id])); ?>">Edit</a></td>
+					<td><a href="<?php print_r($url->getUrl('delete',Null,['id'=>$shipping->shipping_id])); ?>">Delete</a></td>
+				</tr>
+				<?php endforeach; ?>
+			<?php else: ?>
+				<tr>
+					<td colspan="8">No records available.</td>
+				</tr>
+			<?php endif; ?>
+		</table>
+	</div>
+	<?php require_once 'View/html/footer.phtml'; ?>
+</body>
+</html>

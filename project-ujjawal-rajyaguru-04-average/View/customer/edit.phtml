@@ -1,0 +1,105 @@
+<?php
+
+$customer = $this->customer;
+
+?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="View/skin/style.css">
+
+</head>
+
+<body>
+    <?php require_once 'View/html/header.phtml' ?>
+    <div class="content-main">
+        <form action="<?php print_r($url->getUrl('save')) ?>" method="post">
+            <table>
+                <tr>
+                    <td>
+                        <h1>Save Customer</h1>
+                    </td>
+                    <td class="sub-head">
+                        <button type="submit">Save</button>
+                        <input type="button" value="Cancel" onclick="window.location.href='<?php print_r($url->getUrl('grid',Null,Null,true)); ?>'">
+                    </td>
+                </tr>
+            </table>
+            <table border="2px">
+                <tr>
+                    <td>First Name: </td>
+                    <td><input type="text" name="customer[first_name]" value="<?php echo $customer->first_name; ?>"></td>
+                </tr>
+                <tr>
+                    <td>Last Name: </td>
+                    <td><input type="text" name="customer[last_name]" value="<?php echo $customer->last_name; ?>"></td>
+                </tr>
+                <tr>
+                    <td>Email: </td>
+                    <td><input type="email" name="customer[email]" value="<?php echo $customer->email; ?>"></td>
+                </tr>
+                <tr>
+                    <td>Gender: </td>
+                    <td>
+                        <?php foreach ($customer->getTable()->getGenderOptions() as $gender) :?> 
+                        <?php $checked = ($customer->getGender() == $gender) ? 'checked':'' ?>   
+                        <input type="radio" name="customer[gender]" value="<?php echo $gender ?>" <?php echo $checked; ?>><?php echo $gender ?> <br>
+                        <?php endforeach; ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Mobile: </td>
+                    <td><input type="number" name="customer[mobile]" value ="<?php echo $customer->mobile; ?>"></td>
+                </tr>
+                <tr>
+                    <td>Status: </td>
+                    <td>
+                        <select name="customer[status]">
+                            <?php foreach ($customer->getTable()->getStatusOptions() as $key => $value):?>
+                            <?php $selected = ($customer->getStatus() == $key) ? 'selected' : '' ?>
+                            <option value="<?php echo $key ?>" <?php echo $selected ?>><?php echo $value ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+            <table border="2px"address>
+                <tr>
+                    <th colspan="2"><h3>Address</h3></th>
+                </tr>
+                <tr>
+                    <td>Address: </td>
+                    <td>
+                        <textarea name="address[address]"><?php echo $customer->address; ?></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>City: </td>
+                    <td><input type="text" name="address[city]" value="<?php echo $customer->city; ?>"></td>
+                </tr>
+                <tr>
+                    <td>State: </td>
+                    <td><input type="text" name="address[state]" value="<?php echo $customer->state; ?>"></td>
+                </tr>
+                <tr>
+                    <td>Country: </td>
+                    <td><input type="text" name="address[country]" value="<?php echo $customer->country; ?>"></td>
+                </tr>
+                <tr>
+                    <td>Zip Code: </td>
+                    <td><input type="number" name="address[zipcode]" value="<?php echo $customer->zipcode; ?>"></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <div>
+        <?php require_once 'View/html/footer.phtml'; ?>
+    </div>
+</body>
+
+</html>

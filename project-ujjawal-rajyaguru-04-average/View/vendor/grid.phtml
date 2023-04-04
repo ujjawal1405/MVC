@@ -1,0 +1,67 @@
+<?php 
+
+$vendors = $this->vendors;
+
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+    <link rel="stylesheet" type="text/css" href="View/skin/style.css">
+
+</head>
+<body>
+	<?php require_once 'View/html/header.phtml' ?>
+	<div class="content-main">
+		<div class="content">
+            <h2>Manage Vendor</h2>
+            <a href="<?php print_r($url->getUrl('add')); ?>">Add Vender</a>
+        </div>
+        <div>
+            <table border="1px">
+                <tr>
+                    <th>VID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Gender</th>
+                    <th>Mobile</th>
+                    <th>Status</th>
+                    <th>Company</th>
+                    <th>Country</th>
+                    <th>CreatedAt</th>
+                    <th>UpdatedAt</th>
+                    <th colspan="2">Actions</th>
+                </tr>
+                <?php if(is_array($vendors)): ?>
+                    <?php foreach($vendors as $vendor):?>
+                    <tr>
+                        <td><center><?php echo $vendor->vendor_id ?></center></td>
+                        <td><?php echo $vendor->first_name ?></td>
+                        <td><?php echo $vendor->last_name ?></td>
+                        <td><?php echo $vendor->email ?></td>
+                        <td><?php echo $vendor->gender ?></td>
+                        <td><?php echo $vendor->mobile ?></td>
+                        <td><?php echo $vendor->getStatusText() ?></td>
+                        <td><?php echo $vendor->company ?></td>
+                        <td><?php echo $vendor->country ?></td>
+                        <td><?php echo $vendor->created_at ?></td>
+                        <td><?php echo $vendor->updated_at;?></td>
+                        <td><a href="<?php print_r($url->getUrl('edit',Null,['id'=>$vendor->vendor_id])); ?>">Edit</a></td>
+                        <td><a href="<?php print_r($url->getUrl('delete',Null,['id'=>$vendor->vendor_id])); ?>">Delete</a></td>
+                    </tr>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <tr>
+                        <td colspan="13">No records available.</td>
+                    </tr>
+                <?php endif; ?>
+            </table>
+        </div>
+	</div>
+	<?php require_once 'View/html/footer.phtml' ?>
+</body>
+</html>

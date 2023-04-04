@@ -1,0 +1,44 @@
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.content-main {
+    border: 1px solid grey;
+    padding-left: 20px;
+    padding-bottom: 20px;
+}
+.content{
+    display: flex;
+}
+.content a{
+    margin: 18px 0px 18px 850px;
+    border: 2px solid white;
+    background-color: grey;
+    border-radius: 15px;
+    padding: 5px 10px;
+    text-decoration: none;
+    color: black;
+}
+
+.sub-head{
+    padding-left: 20px;
+}
+
+.content button{
+   	margin: 18px 0px 18px 700px;
+}
+.image{
+	width: 300px;
+	height: 100px;
+}
+
+.button button{
+	margin-left: 50px;
+}
+.button a{
+	margin-left: 10px;
+	text-decoration: none;
+	color: black;
+	border: 2px solid grey;
+	border-radius: 10%;
+}

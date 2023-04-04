@@ -1,0 +1,49 @@
+<?php 
+
+$payment = $this->payment;
+
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="View/skin/style.css">
+</head>
+<body>
+	<?php require_once 'View/html/header.phtml'; ?>
+	<div class="content-main">
+		<form action="<?php print_r($url->getUrl('save')); ?>" method="post">
+			<table>
+				<tr>
+					<td><h2>Save Payment Method</h2></td>
+					<td class="sub-head">
+						<button type="submit">Save</button>
+						<input type="button" value="Cancel" onclick="window.location.href='<?php print_r($url->getUrl('grid',Null,null,true)); ?>'">
+					</td>
+				</tr>
+			</table>
+			<table border="2px">
+                <tr>
+                    <td>Name: </td>
+                    <td><input type="text" name="payment[name]" value="<?php echo $payment->name; ?>"></td>
+                </tr>
+                <tr>
+                    <td>Status: </td>
+                    <td>
+                        <select name="payment[status]">
+                        	<?php foreach ($payment->getTable()->getStatusOptions() as $key => $value) :?>
+                        	<?php $selected = ($payment->getStatus() == $key) ? 'selected':'' ?>
+                        	<option value="<?php echo $key ?>" <?php echo $selected ?>><?php echo $value ?></option>
+                        	<?php endforeach; ?>
+                        </select>
+                    </td>
+                </tr>
+			</table>
+		</form>		
+	</div>
+	<?php require_once 'View/html/footer.phtml'; ?>
+</body>
+</html>

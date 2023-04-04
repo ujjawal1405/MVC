@@ -1,0 +1,66 @@
+<?php 
+$category = $this->category;
+$parents = $category->getParentCategories();
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="View/skin/style.css">
+
+</head>
+<body>
+	<?php require_once 'View/html/header.phtml'; ?>
+	<div class="content-main">
+		<form action="<?php print_r($url->getUrl('save')); ?>" method="post">
+			 <table>
+                <tr>
+                    <td>
+                        <h1>Save Category</h1>
+                    </td>
+                    <td class="sub-head">
+                        <button type="submit">Save</button>
+                        <input type="button" value="Cancel" onclick="window.location.href='<?php print_r($url->getUrl('grid',Null,Null,true)); ?>'">
+                    </td>
+                </tr>
+            </table>
+            <table border="2px">
+            	<tr>
+					<td>Name :</td>
+					<td><input type="text" name="category[name]" value="<?php echo $category->name ?>"></td>
+				</tr>
+				<tr>
+					<td>Parent's Category: </td>
+					<td>
+						<select name="category[parent_id]">
+							<?php foreach($parents as $id=>$path): ?>
+								<?php $selected = ($category->selectPath() == $path) ? 'selected':'' ?>
+								<option value="<?php echo $id ?>" <?php echo $selected ?>><?php echo $category->getPathText($path) ?></option>
+							<?php endforeach; ?>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>Status :</td>
+					<td>
+						<select name="category[status]">
+							<?php foreach ($category->getTable()->getStatusOptions() as $key => $value):?>
+							<?php $selected = ($key == $category->getStatus()) ? 'selected':'' ?>
+							<option value="<?php echo $key ?>" <?php echo $selected ?>><?php echo $value ?></option>
+							<?php endforeach; ?>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>Description :</td>
+					<td><textarea name="category[description]"><?php echo $category->description ?></textarea></td>
+				</tr>
+            </table>
+		</form>
+	</div>
+	<?php require_once 'View/html/footer.phtml'; ?>
+</body>
+</html>
